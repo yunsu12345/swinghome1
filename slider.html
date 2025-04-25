@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8">
   <title>팬트리 슬라이드 배너</title>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -13,20 +13,39 @@
       overflow: hidden;
       position: relative;
       border-radius: 16px;
+      aspect-ratio: 2 / 1;
     }
     .slider {
       display: flex;
       width: 500%;
       transition: transform 0.5s ease-in-out;
     }
-    .slider img {
-      width: 100%;
-      height: auto;
-      flex-shrink: 0;
+    .slide {
+      flex: 0 0 100%;
+      position: relative;
     }
+    .slide img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 2.5rem;
+      background: rgba(0,0,0,0.5);
+      color: white;
+      border-radius: 50%;
+      padding: 0.5rem 0.8rem;
+      cursor: pointer;
+      z-index: 1000;
+    }
+    .arrow.left { left: 10px; }
+    .arrow.right { right: 10px; }
     .dots {
       text-align: center;
-      margin-top: 8px;
+      margin-top: 10px;
     }
     .dots span {
       height: 10px;
@@ -39,19 +58,6 @@
     .dots .active {
       background-color: #333;
     }
-    .arrow {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      font-size: 3rem;
-      background: rgba(0,0,0,0.6);
-      border-radius: 50%;
-      padding: 0.5rem 1rem;
-      cursor: pointer;
-      z-index: 1000;
-    }
-    .arrow.left { left: 10px; }
-    .arrow.right { right: 10px; }
   </style>
 </head>
 <body>
@@ -60,11 +66,11 @@
   <div class="arrow left" onclick="prevSlide()">❮</div>
   <div class="arrow right" onclick="nextSlide()">❯</div>
   <div class="slider" id="slider">
-    <img src="https://ncdn2.swing2app.co.kr/public/swing_editor_page_content_attach/14163805/20251724.png" />
-    <img src="https://ncdn2.swing2app.co.kr/public/swing_editor_page_content_attach/14163861/20252624.jpg" alt="배너2" />
-    <img src="https://ncdn2.swing2app.co.kr/public/swing_editor_page_content_attach/14163862/20252624.jpg" alt="배너3" />
-    <img src="https://ncdn2.swing2app.co.kr/public/swing_editor_page_content_attach/14163863/20252624.jpg" alt="배너4" />
-    <img src="https://ncdn2.swing2app.co.kr/public/swing_editor_page_content_attach/14163864/20252624.jpg" alt="배너5" />
+    <div class="slide"><img src="https://ncdn2.swing2app.co.kr/public/swing_editor_page_content_attach/14163805/20251724.png" />
+    <div class="slide"><img src="https://ncdn2.swing2app.co.kr/public/swing_editor_page_content_attach/14163861/20252624.jpg" alt="배너2" />
+    <div class="slide"><img src="https://ncdn2.swing2app.co.kr/public/swing_editor_page_content_attach/14163862/20252624.jpg" alt="배너3" />
+    <div class="slide"><img src="https://ncdn2.swing2app.co.kr/public/swing_editor_page_content_attach/14163863/20252624.jpg" alt="배너4" />
+    <div class="slide"><img src="https://ncdn2.swing2app.co.kr/public/swing_editor_page_content_attach/14163864/20252624.jpg" alt="배너5" />
   </div>
   <div class="dots" id="dots">
     <span class="active"></span><span></span><span></span><span></span><span></span>

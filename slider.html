@@ -2,19 +2,21 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8" />
-  <title>슬라이드 배너</title>
+  <title>팬트리 슬라이드 배너</title>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body { background: #f8f6f3; }
     .slider-container {
       width: 100%;
       max-width: 1080px;
-      margin: auto;
+      margin: 0 auto;
       overflow: hidden;
+      position: relative;
       border-radius: 16px;
     }
     .slider {
       display: flex;
+      width: 500%;
       transition: transform 0.5s ease-in-out;
     }
     .slider img {
@@ -37,11 +39,26 @@
     .dots .active {
       background-color: #333;
     }
+    .arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 2rem;
+      background: rgba(255,255,255,0.6);
+      border-radius: 50%;
+      padding: 0.5rem 0.8rem;
+      cursor: pointer;
+      z-index: 10;
+    }
+    .arrow.left { left: 10px; }
+    .arrow.right { right: 10px; }
   </style>
 </head>
 <body>
 
 <div class="slider-container">
+  <div class="arrow left" onclick="prevSlide()">❮</div>
+  <div class="arrow right" onclick="nextSlide()">❯</div>
   <div class="slider" id="slider">
     <a href="#"><img src="https://ncdn2.swing2app.co.kr/public/swing_editor_page_content_attach/14163805/20251724.png" /></a>
     <a href="#"><img src="https://ncdn2.swing2app.co.kr/public/swing_editor_page_content_attach/14163861/20252624.jpg" alt="배너2" /></a>
@@ -57,7 +74,9 @@
 <script>
   const slider = document.getElementById('slider');
   const dots = document.getElementById('dots').children;
+  const totalSlides = dots.length;
   let index = 0;
+  let interval;
 
   function showSlide(i) {
     slider.style.transform = `translateX(-${i * 100}%)`;
@@ -65,10 +84,27 @@
     dots[i].classList.add('active');
   }
 
-  setInterval(() => {
-    index = (index + 1) % 5;
+  function nextSlide() {
+    index = (index + 1) % totalSlides;
     showSlide(index);
-  }, 12000); // 12초 간격
+  }
+
+  function prevSlide() {
+    index = (index - 1 + totalSlides) % totalSlides;
+    showSlide(index);
+  }
+
+  function startAutoSlide() {
+    interval = setInterval(nextSlide, 4000);
+  }
+
+  function stopAutoSlide() {
+    clearInterval(interval);
+  }
+
+  // 시작
+  showSlide(index);
+  startAutoSlide();
 </script>
 
 </body>
